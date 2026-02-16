@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 850">
+  <style>
+    text { font-family: 'Segoe UI', Arial, sans-serif; }
+    .title { font-size: 18px; font-weight: bold; fill: #1a1a1a; }
+    .step-label { font-size: 14px; font-weight: bold; fill: #333; }
+    .value { font-size: 15px; font-weight: bold; fill: #fff; }
+    .pointer-label { font-size: 12px; font-weight: bold; fill: #8e44ad; }
+    .deleted { font-size: 12px; font-weight: bold; fill: #e74c3c; }
+    .code { font-size: 12px; fill: #2c3e50; font-family: 'Consolas', monospace; }
+    .note { font-size: 11px; fill: #777; font-style: italic; }
+    .value-sm { font-size: 11px; font-weight: bold; fill: #fff; }
+  </style>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+    </marker>
+    <marker id="ptr-arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#8e44ad"/>
+    </marker>
+  </defs>
+
+  <text x="400" y="28" text-anchor="middle" class="title">pop_back: Remove the Tail Node (Trailing Pointer Pattern)</text>
+
+  <!-- ==================== Step 1 ==================== -->
+  <text x="30" y="65" class="step-label">Step 1: create both pointers at head</text>
+  <text x="30" y="82" class="code">auto* current = head_;  auto* previous = head_;</text>
+
+  <!-- head_ pointer (above) -->
+  <text x="147" y="103" text-anchor="middle" class="pointer-label">head_</text>
+  <line x1="147" y1="108" x2="147" y2="128" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Node 10 -->
+  <rect x="120" y="130" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="175" y="130" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="147" y="155" text-anchor="middle" class="value">10</text>
+  <text x="202" y="155" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- previous pointer (below node 10, arrow up) — offset left -->
+  <text x="120" y="205" text-anchor="middle" class="pointer-label">previous</text>
+  <line x1="120" y1="193" x2="120" y2="177" stroke="#8e44ad" stroke-width="2"/>
+  <polygon points="116 177, 120 170, 124 177" fill="#8e44ad"/>
+
+  <!-- current pointer (below node 10, arrow up) — offset right -->
+  <text x="175" y="205" text-anchor="middle" class="pointer-label">current</text>
+  <line x1="175" y1="193" x2="175" y2="177" stroke="#8e44ad" stroke-width="2"/>
+  <polygon points="171 177, 175 170, 179 177" fill="#8e44ad"/>
+
+  <!-- Arrow 10→20 -->
+  <line x1="230" y1="150" x2="318" y2="150" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 20 -->
+  <rect x="320" y="130" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="375" y="130" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="347" y="155" text-anchor="middle" class="value">20</text>
+  <text x="402" y="155" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 20→30 -->
+  <line x1="430" y1="150" x2="518" y2="150" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 30 -->
+  <rect x="520" y="130" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="575" y="130" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="547" y="155" text-anchor="middle" class="value">30</text>
+  <text x="602" y="155" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 30→nullptr -->
+  <line x1="630" y1="150" x2="688" y2="150" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="690" y="140" width="65" height="22" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="722" y="156" text-anchor="middle" class="deleted">nullptr</text>
+
+  <!-- ==================== Step 2 ==================== -->
+  <text x="30" y="245" class="step-label">Step 2: loop iteration 1 — previous stays at 10, current moves to 20</text>
+  <text x="30" y="262" class="code">previous = current;  current = current-&gt;next;</text>
+
+  <!-- head_ pointer (above) -->
+  <text x="147" y="283" text-anchor="middle" class="pointer-label">head_</text>
+  <line x1="147" y1="288" x2="147" y2="308" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Node 10 -->
+  <rect x="120" y="310" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="175" y="310" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="147" y="335" text-anchor="middle" class="value">10</text>
+  <text x="202" y="335" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- previous pointer (below node 10, arrow up) -->
+  <text x="147" y="385" text-anchor="middle" class="pointer-label">previous</text>
+  <line x1="147" y1="373" x2="147" y2="357" stroke="#8e44ad" stroke-width="2"/>
+  <polygon points="143 357, 147 350, 151 357" fill="#8e44ad"/>
+
+  <!-- Arrow 10→20 -->
+  <line x1="230" y1="330" x2="318" y2="330" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 20 -->
+  <rect x="320" y="310" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="375" y="310" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="347" y="335" text-anchor="middle" class="value">20</text>
+  <text x="402" y="335" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- current pointer (below node 20, arrow up) -->
+  <text x="347" y="385" text-anchor="middle" class="pointer-label">current</text>
+  <line x1="347" y1="373" x2="347" y2="357" stroke="#8e44ad" stroke-width="2"/>
+  <polygon points="343 357, 347 350, 351 357" fill="#8e44ad"/>
+
+  <!-- Arrow 20→30 -->
+  <line x1="430" y1="330" x2="518" y2="330" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 30 -->
+  <rect x="520" y="310" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="575" y="310" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="547" y="335" text-anchor="middle" class="value">30</text>
+  <text x="602" y="335" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 30→nullptr -->
+  <line x1="630" y1="330" x2="688" y2="330" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="690" y="320" width="65" height="22" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="722" y="336" text-anchor="middle" class="deleted">nullptr</text>
+
+  <text x="400" y="410" text-anchor="middle" class="note">current-&gt;next is not nullptr, so the loop continues...</text>
+
+  <!-- ==================== Step 3 ==================== -->
+  <text x="30" y="445" class="step-label">Step 3: loop iteration 2 — previous moves to 20, current moves to 30</text>
+  <text x="30" y="462" class="code">previous = current;  current = current-&gt;next;</text>
+
+  <!-- head_ pointer (above) -->
+  <text x="147" y="483" text-anchor="middle" class="pointer-label">head_</text>
+  <line x1="147" y1="488" x2="147" y2="508" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Node 10 -->
+  <rect x="120" y="510" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="175" y="510" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="147" y="535" text-anchor="middle" class="value">10</text>
+  <text x="202" y="535" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 10→20 -->
+  <line x1="230" y1="530" x2="318" y2="530" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 20 -->
+  <rect x="320" y="510" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="375" y="510" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="347" y="535" text-anchor="middle" class="value">20</text>
+  <text x="402" y="535" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- previous pointer (below node 20, arrow up) -->
+  <text x="347" y="585" text-anchor="middle" class="pointer-label">previous</text>
+  <line x1="347" y1="573" x2="347" y2="557" stroke="#8e44ad" stroke-width="2"/>
+  <polygon points="343 557, 347 550, 351 557" fill="#8e44ad"/>
+
+  <!-- Arrow 20→30 -->
+  <line x1="430" y1="530" x2="518" y2="530" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 30 -->
+  <rect x="520" y="510" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="575" y="510" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="547" y="535" text-anchor="middle" class="value">30</text>
+  <text x="602" y="535" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- current pointer (below node 30, arrow up) -->
+  <text x="547" y="585" text-anchor="middle" class="pointer-label">current</text>
+  <line x1="547" y1="573" x2="547" y2="557" stroke="#8e44ad" stroke-width="2"/>
+  <polygon points="543 557, 547 550, 551 557" fill="#8e44ad"/>
+
+  <!-- Arrow 30→nullptr -->
+  <line x1="630" y1="530" x2="688" y2="530" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="690" y="520" width="65" height="22" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="722" y="536" text-anchor="middle" class="deleted">nullptr</text>
+
+  <text x="400" y="610" text-anchor="middle" class="note">current-&gt;next IS nullptr — loop stops. previous trails one behind current. This traversal is O(n).</text>
+
+  <!-- ==================== Step 4 ==================== -->
+  <text x="30" y="645" class="step-label">Step 4: unlink tail, delete current, --size_</text>
+  <text x="30" y="662" class="code">previous-&gt;next = nullptr;  delete current;</text>
+
+  <!-- head_ pointer (above) -->
+  <text x="147" y="683" text-anchor="middle" class="pointer-label">head_</text>
+  <line x1="147" y1="688" x2="147" y2="708" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Node 10 -->
+  <rect x="120" y="710" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="175" y="710" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="147" y="735" text-anchor="middle" class="value">10</text>
+  <text x="202" y="735" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 10→20 -->
+  <line x1="230" y1="730" x2="318" y2="730" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 20 — now the tail -->
+  <rect x="320" y="710" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="375" y="710" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="347" y="735" text-anchor="middle" class="value">20</text>
+  <text x="402" y="735" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 20→nullptr (previous->next is now nullptr) -->
+  <line x1="430" y1="730" x2="488" y2="730" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="490" y="720" width="65" height="22" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="522" y="736" text-anchor="middle" class="deleted">nullptr</text>
+
+  <!-- Node 30 — deleted (X'd out) -->
+  <rect x="590" y="710" width="110" height="40" rx="4" fill="#fadbd8" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="590" y1="710" x2="700" y2="750" stroke="#e74c3c" stroke-width="2.5"/>
+  <line x1="700" y1="710" x2="590" y2="750" stroke="#e74c3c" stroke-width="2.5"/>
+  <text x="645" y="735" text-anchor="middle" class="deleted">deleted</text>
+
+  <!-- Bottom note -->
+  <text x="400" y="800" text-anchor="middle" class="note">A doubly linked list with a tail pointer makes this O(1) — we'll explore that later</text>
+</svg>

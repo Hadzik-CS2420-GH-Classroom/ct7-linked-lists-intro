@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540">
+  <style>
+    text { font-family: 'Segoe UI', Arial, sans-serif; }
+    .title { font-size: 18px; font-weight: bold; fill: #1a1a1a; }
+    .step-label { font-size: 14px; font-weight: bold; fill: #333; }
+    .value { font-size: 15px; font-weight: bold; fill: #fff; }
+    .pointer-label { font-size: 12px; font-weight: bold; fill: #8e44ad; }
+    .new-label { font-size: 12px; font-weight: bold; fill: #2980b9; }
+    .deleted { font-size: 12px; font-weight: bold; fill: #e74c3c; }
+    .code { font-size: 12px; fill: #2c3e50; font-family: 'Consolas', monospace; }
+    .note { font-size: 11px; fill: #777; font-style: italic; }
+    .value-sm { font-size: 11px; font-weight: bold; fill: #fff; }
+  </style>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+    </marker>
+    <marker id="ptr-arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#8e44ad"/>
+    </marker>
+    <marker id="new-arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2980b9"/>
+    </marker>
+  </defs>
+
+  <text x="400" y="28" text-anchor="middle" class="title">push_back: Insert a New Node at the Tail</text>
+
+  <!-- ==================== Before ==================== -->
+  <text x="30" y="65" class="step-label">Before: list contains 10 → 20</text>
+
+  <!-- head_ pointer -->
+  <text x="147" y="88" text-anchor="middle" class="pointer-label">head_</text>
+  <line x1="147" y1="93" x2="147" y2="113" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Node 10 -->
+  <rect x="120" y="115" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="175" y="115" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="147" y="140" text-anchor="middle" class="value">10</text>
+  <text x="202" y="140" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 10→20 -->
+  <line x1="230" y1="135" x2="318" y2="135" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 20 -->
+  <rect x="320" y="115" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="375" y="115" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="347" y="140" text-anchor="middle" class="value">20</text>
+  <text x="402" y="140" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 20→nullptr -->
+  <line x1="430" y1="135" x2="488" y2="135" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="490" y="125" width="65" height="22" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="522" y="141" text-anchor="middle" class="deleted">nullptr</text>
+
+  <!-- ==================== Step 1 ==================== -->
+  <text x="30" y="195" class="step-label">Step 1: traverse to the last node</text>
+  <text x="30" y="212" class="code">while (current-&gt;next) { current = current-&gt;next; }</text>
+
+  <!-- head_ pointer -->
+  <text x="147" y="238" text-anchor="middle" class="pointer-label">head_</text>
+  <line x1="147" y1="243" x2="147" y2="263" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Node 10 -->
+  <rect x="120" y="265" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="175" y="265" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="147" y="290" text-anchor="middle" class="value">10</text>
+  <text x="202" y="290" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 10→20 -->
+  <line x1="230" y1="285" x2="318" y2="285" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 20 -->
+  <rect x="320" y="265" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="375" y="265" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="347" y="290" text-anchor="middle" class="value">20</text>
+  <text x="402" y="290" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- current pointer on node 20 -->
+  <text x="347" y="238" text-anchor="middle" class="pointer-label">current</text>
+  <line x1="347" y1="243" x2="347" y2="263" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Arrow 20→nullptr -->
+  <line x1="430" y1="285" x2="488" y2="285" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="490" y="275" width="65" height="22" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="522" y="291" text-anchor="middle" class="deleted">nullptr</text>
+
+  <!-- O(n) note -->
+  <text x="400" y="325" text-anchor="middle" class="note">This traversal is O(n) — must visit every node to find the last one</text>
+
+  <!-- ==================== Step 2 ==================== -->
+  <text x="30" y="355" class="step-label">Step 2: link new node, current-&gt;next = newNode, ++size_</text>
+  <text x="30" y="372" class="code">current-&gt;next = newNode;</text>
+
+  <!-- head_ pointer -->
+  <text x="147" y="393" text-anchor="middle" class="pointer-label">head_</text>
+  <line x1="147" y1="398" x2="147" y2="418" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Node 10 -->
+  <rect x="120" y="420" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="175" y="420" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="147" y="445" text-anchor="middle" class="value">10</text>
+  <text x="202" y="445" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 10→20 -->
+  <line x1="230" y1="440" x2="318" y2="440" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 20 -->
+  <rect x="320" y="420" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="375" y="420" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="347" y="445" text-anchor="middle" class="value">20</text>
+  <text x="402" y="445" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- Arrow 20→30 (dashed blue — new link) -->
+  <line x1="430" y1="440" x2="518" y2="440" stroke="#2980b9" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#new-arrow)"/>
+
+  <!-- New node 30 (highlighted with blue border) -->
+  <rect x="520" y="420" width="55" height="40" rx="4" fill="#3498db" stroke="#2471a3" stroke-width="3"/>
+  <rect x="575" y="420" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="547" y="445" text-anchor="middle" class="value">30</text>
+  <text x="602" y="445" text-anchor="middle" class="value-sm">next</text>
+
+  <!-- new node label -->
+  <text x="575" y="413" text-anchor="middle" class="new-label">new node</text>
+
+  <!-- Arrow 30→nullptr -->
+  <line x1="630" y1="440" x2="688" y2="440" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="690" y="430" width="65" height="22" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="722" y="446" text-anchor="middle" class="deleted">nullptr</text>
+</svg>
