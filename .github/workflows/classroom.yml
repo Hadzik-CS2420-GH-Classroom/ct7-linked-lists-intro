@@ -1,0 +1,249 @@
+name: Autograding Tests
+on:
+  - push
+  - repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Project
+      continue-on-error: true
+      run: |
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+        cmake --build build --config Release
+
+    - name: Build Check (2 points)
+      id: build
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Build Check (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            echo "Build successful"
+          else
+            echo "Build failed" && exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    # ==================== Destructor Tests (6 points) ====================
+
+    - name: Destructor Frees Memory (6 points)
+      id: destructor
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Destructor Frees Memory (6 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.DestructorFreesMemory
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 6
+
+    # ==================== push_front Tests (8 points) ====================
+
+    - name: Push Front Single Element (4 points)
+      id: push-front-single
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Push Front Single Element (4 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.PushFrontSingleElement
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 4
+
+    - name: Push Front Multiple Elements (4 points)
+      id: push-front-multiple
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Push Front Multiple Elements (4 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.PushFrontMultipleElements
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 4
+
+    # ==================== push_back Tests (8 points) ====================
+
+    - name: Push Back Single Element (4 points)
+      id: push-back-single
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Push Back Single Element (4 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.PushBackSingleElement
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 4
+
+    - name: Push Back Multiple Elements (4 points)
+      id: push-back-multiple
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Push Back Multiple Elements (4 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.PushBackMultipleElements
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 4
+
+    # ==================== pop_front Tests (8 points) ====================
+
+    - name: Pop Front Removes Head (4 points)
+      id: pop-front-head
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Pop Front Removes Head (4 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.PopFrontRemovesHead
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 4
+
+    - name: Pop Front To Empty (4 points)
+      id: pop-front-empty
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Pop Front To Empty (4 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.PopFrontToEmpty
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 4
+
+    # ==================== pop_back Tests (10 points) ====================
+
+    - name: Pop Back Removes Tail (5 points)
+      id: pop-back-tail
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Pop Back Removes Tail (5 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.PopBackRemovesTail
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 5
+
+    - name: Pop Back To Empty (5 points)
+      id: pop-back-empty
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Pop Back To Empty (5 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.PopBackToEmpty
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 5
+
+    # ==================== Getters & Print Tests (8 points) ====================
+
+    - name: Is Empty On New List (2 points)
+      id: is-empty
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Is Empty On New List (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.IsEmptyOnNewList
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Print Empty List (2 points)
+      id: print-empty
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Print Empty List (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.PrintEmptyList
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Print Populated List (4 points)
+      id: print-populated
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Print Populated List (4 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=SinglyLinkedListTest.PrintPopulatedList
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 4
+
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        BUILD_RESULTS: "${{steps.build.outputs.result}}"
+        DESTRUCTOR_RESULTS: "${{steps.destructor.outputs.result}}"
+        PUSH-FRONT-SINGLE_RESULTS: "${{steps.push-front-single.outputs.result}}"
+        PUSH-FRONT-MULTIPLE_RESULTS: "${{steps.push-front-multiple.outputs.result}}"
+        PUSH-BACK-SINGLE_RESULTS: "${{steps.push-back-single.outputs.result}}"
+        PUSH-BACK-MULTIPLE_RESULTS: "${{steps.push-back-multiple.outputs.result}}"
+        POP-FRONT-HEAD_RESULTS: "${{steps.pop-front-head.outputs.result}}"
+        POP-FRONT-EMPTY_RESULTS: "${{steps.pop-front-empty.outputs.result}}"
+        POP-BACK-TAIL_RESULTS: "${{steps.pop-back-tail.outputs.result}}"
+        POP-BACK-EMPTY_RESULTS: "${{steps.pop-back-empty.outputs.result}}"
+        IS-EMPTY_RESULTS: "${{steps.is-empty.outputs.result}}"
+        PRINT-EMPTY_RESULTS: "${{steps.print-empty.outputs.result}}"
+        PRINT-POPULATED_RESULTS: "${{steps.print-populated.outputs.result}}"
+      with:
+        runners: build,destructor,push-front-single,push-front-multiple,push-back-single,push-back-multiple,pop-front-head,pop-front-empty,pop-back-tail,pop-back-empty,is-empty,print-empty,print-populated

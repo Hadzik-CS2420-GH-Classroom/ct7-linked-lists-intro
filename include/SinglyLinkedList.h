@@ -39,6 +39,7 @@ public:
     void push_front(int value); // insert a new node at the head — O(1)
     void push_back(int value);  // insert a new node at the tail — O(n)
     void pop_front();           // remove the head node — O(1)
+    void pop_back();            // remove the tail node — O(n)
 
     int get_size() const noexcept;
     bool is_empty() const noexcept;

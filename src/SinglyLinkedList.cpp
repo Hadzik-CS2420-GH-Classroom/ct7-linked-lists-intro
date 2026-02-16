@@ -99,6 +99,56 @@ void SinglyLinkedList::pop_front() {
     --size_;
 }
 
+// ? SEE DIAGRAM: images/svgs/pop_back.svg — shows trailing pointer pattern to find and remove the last node
+
+void SinglyLinkedList::pop_back() {
+    if (!head_) {
+        throw std::underflow_error("Cannot pop from an empty list");
+    }
+
+    // ! DISCUSSION: Special case — only one node in the list.
+    //   If head_->next is nullptr, the head IS the tail. Just delete
+    //   it and set head_ to nullptr. No traversal needed.
+    if (!head_->next) {
+        delete head_;
+        head_ = nullptr;
+        --size_;
+        return;
+    }
+
+    // ! DISCUSSION: The "trailing pointer" pattern.
+    //   We need TWO pointers: 'current' advances through the list,
+    //   and 'previous' trails one node behind. When current reaches
+    //   the last node, previous is pointing to the second-to-last —
+    //   which is exactly the node whose 'next' we need to set to nullptr.
+    //
+    //   Why can't we just use one pointer?
+    //   Because singly linked list nodes don't know who points TO them.
+    //   Once we find the last node, there's no way to go BACKWARDS to
+    //   update the previous node's next pointer. The trailing pointer
+    //   solves this by keeping track of where we came from.
+    //
+    // ! DISCUSSION: This makes pop_back O(n) — we must traverse the
+    //   entire list to find the second-to-last node. Compare this to
+    //   pop_front which is O(1). This is a key weakness of singly
+    //   linked lists. A doubly linked list fixes this by giving each
+    //   node a 'prev' pointer — we'll see that later.
+    auto* current = head_;
+    auto* previous = head_;
+    while (current->next) {
+        previous = current;
+        current = current->next;
+    }
+
+    // ! DISCUSSION: Now 'current' is the last node and 'previous' is
+    //   the second-to-last. We unlink and delete:
+    //     1. Set previous->next to nullptr (it's now the new tail)
+    //     2. Delete current (free the old tail's memory)
+    previous->next = nullptr;
+    delete current;
+    --size_;
+}
+
 // --- Getters ---
 
 int SinglyLinkedList::get_size() const noexcept { return size_; }

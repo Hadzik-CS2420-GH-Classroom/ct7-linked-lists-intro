@@ -1,3 +1,0 @@
-C:/DEV/WEBER/CS2420/module4/ct7-linked-lists-intro/build/CMakeFiles/ct7-linked-lists-intro.dir
-C:/DEV/WEBER/CS2420/module4/ct7-linked-lists-intro/build/CMakeFiles/edit_cache.dir
-C:/DEV/WEBER/CS2420/module4/ct7-linked-lists-intro/build/CMakeFiles/rebuild_cache.dir

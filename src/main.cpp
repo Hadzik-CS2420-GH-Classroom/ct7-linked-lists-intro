@@ -88,5 +88,21 @@ int main() {
     //   just pointer updates. This is exactly how std::queue works
     //   under the hood.
 
+    // --- 5. Customer at the back gives up and leaves (pop_back) ---
+    std::cout << "--- 5. Customer at the back gives up ---\n";
+
+    std::cout << "Ticket at the back of the line gives up waiting...\n";
+    line.pop_back();
+    std::cout << "Current line: ";
+    line.print();
+    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+
+    // ! DISCUSSION: "Why is pop_back slower than pop_front?"
+    //   To remove the last node, we have to traverse the ENTIRE list
+    //   to find the second-to-last node (the trailing pointer pattern).
+    //   pop_front just moves head — O(1). pop_back must traverse — O(n).
+    //   This is a key tradeoff of singly linked lists. A doubly linked
+    //   list solves this with a 'prev' pointer on each node.
+
     return 0;
 }
