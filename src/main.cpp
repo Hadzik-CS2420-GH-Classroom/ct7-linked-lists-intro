@@ -25,11 +25,11 @@ int main() {
     // --- 1. Customers arrive (push_back) ---
     std::cout << "--- 1. Customers arriving at Farr's ---\n";
 
-    std::cout << "Ticket #101 arrives\n";
+    std::cout << "push_back(101) — Ticket #101 arrives\n";
     line.push_back(101);
-    std::cout << "Ticket #102 arrives\n";
+    std::cout << "push_back(102) — Ticket #102 arrives\n";
     line.push_back(102);
-    std::cout << "Ticket #103 arrives\n";
+    std::cout << "push_back(103) — Ticket #103 arrives\n";
     line.push_back(103);
     std::cout << "Current line: ";
     line.print();
@@ -41,7 +41,7 @@ int main() {
     // --- 2. A VIP cuts to the front (push_front) ---
     std::cout << "--- 2. VIP cuts to the front ---\n";
 
-    std::cout << "Ticket #200 (VIP) cuts to the front!\n";
+    std::cout << "push_front(200) — VIP cuts to the front!\n";
     line.push_front(200);
     std::cout << "Current line: ";
     line.print();
@@ -55,13 +55,13 @@ int main() {
     // --- 3. Serving customers (pop_front) ---
     std::cout << "--- 3. Serving customers ---\n";
 
-    std::cout << "Serving ticket at the front...\n";
+    std::cout << "pop_front() — Serving ticket at the front\n";
     line.pop_front();
     std::cout << "Current line: ";
     line.print();
     std::cout << std::format("People waiting: {}\n\n", line.get_size());
 
-    std::cout << "Serving another ticket...\n";
+    std::cout << "pop_front() — Serving another ticket\n";
     line.pop_front();
     std::cout << "Current line: ";
     line.print();
@@ -75,9 +75,9 @@ int main() {
     // --- 4. More customers arrive while others are served ---
     std::cout << "--- 4. More customers arrive ---\n";
 
-    std::cout << "Ticket #104 arrives\n";
+    std::cout << "push_back(104) — Ticket #104 arrives\n";
     line.push_back(104);
-    std::cout << "Ticket #105 arrives\n";
+    std::cout << "push_back(105) — Ticket #105 arrives\n";
     line.push_back(105);
     std::cout << "Current line: ";
     line.print();
@@ -91,7 +91,7 @@ int main() {
     // --- 5. Customer at the back gives up and leaves (pop_back) ---
     std::cout << "--- 5. Customer at the back gives up ---\n";
 
-    std::cout << "Ticket at the back of the line gives up waiting...\n";
+    std::cout << "pop_back() — Ticket at the back gives up waiting\n";
     line.pop_back();
     std::cout << "Current line: ";
     line.print();
