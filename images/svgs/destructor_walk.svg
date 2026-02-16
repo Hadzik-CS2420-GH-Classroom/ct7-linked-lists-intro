@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <style>
+    text { font-family: 'Segoe UI', Arial, sans-serif; }
+    .title { font-size: 18px; font-weight: bold; fill: #1a1a1a; }
+    .step-label { font-size: 14px; font-weight: bold; fill: #333; }
+    .label { font-size: 13px; fill: #333; }
+    .value { font-size: 15px; font-weight: bold; fill: #fff; }
+    .pointer-label { font-size: 12px; font-weight: bold; fill: #8e44ad; }
+    .deleted { font-size: 12px; font-weight: bold; fill: #e74c3c; }
+    .code { font-size: 12px; fill: #2c3e50; font-family: 'Consolas', monospace; }
+    .note { font-size: 11px; fill: #777; font-style: italic; }
+  </style>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+    </marker>
+    <marker id="ptr-arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#8e44ad"/>
+    </marker>
+  </defs>
+
+  <text x="400" y="28" text-anchor="middle" class="title">Destructor: Traversing and Deleting Each Node</text>
+
+  <!-- ==================== Step 1 ==================== -->
+  <text x="30" y="65" class="step-label">Step 1: save head_ into temp</text>
+  <text x="30" y="82" class="code">auto* temp = head_;</text>
+
+  <!-- head_ pointer — horizontal arrow pointing right to node A -->
+  <text x="70" y="155" text-anchor="end" class="pointer-label">head_</text>
+  <line x1="75" y1="150" x2="118" y2="150" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- temp pointer — straight down to node A -->
+  <text x="147" y="103" text-anchor="middle" class="pointer-label">temp</text>
+  <line x1="147" y1="108" x2="147" y2="128" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Node A -->
+  <rect x="120" y="130" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="175" y="130" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="147" y="155" text-anchor="middle" class="value">10</text>
+  <text x="202" y="155" text-anchor="middle" class="value" font-size="11">next</text>
+
+  <!-- Arrow A→B -->
+  <line x1="230" y1="150" x2="318" y2="150" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node B -->
+  <rect x="320" y="130" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="375" y="130" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="347" y="155" text-anchor="middle" class="value">20</text>
+  <text x="402" y="155" text-anchor="middle" class="value" font-size="11">next</text>
+
+  <!-- Arrow B→C -->
+  <line x1="430" y1="150" x2="518" y2="150" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node C -->
+  <rect x="520" y="130" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="575" y="130" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="547" y="155" text-anchor="middle" class="value">30</text>
+  <text x="602" y="155" text-anchor="middle" class="value" font-size="11">next</text>
+
+  <!-- Arrow C→nullptr -->
+  <line x1="630" y1="150" x2="688" y2="150" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="690" y="140" width="65" height="22" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="722" y="156" text-anchor="middle" class="deleted">nullptr</text>
+
+  <!-- ==================== Step 2 ==================== -->
+  <text x="30" y="210" class="step-label">Step 2: advance head_ to next</text>
+  <text x="30" y="227" class="code">head_ = head_-&gt;next;</text>
+
+  <!-- temp pointer — straight down to node A -->
+  <text x="147" y="248" text-anchor="middle" class="pointer-label">temp</text>
+  <line x1="147" y1="253" x2="147" y2="273" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- head_ pointer — straight down to node B -->
+  <text x="347" y="248" text-anchor="middle" class="pointer-label">head_</text>
+  <line x1="347" y1="253" x2="347" y2="273" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Node A -->
+  <rect x="120" y="275" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="175" y="275" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="147" y="300" text-anchor="middle" class="value">10</text>
+  <text x="202" y="300" text-anchor="middle" class="value" font-size="11">next</text>
+
+  <line x1="230" y1="295" x2="318" y2="295" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node B -->
+  <rect x="320" y="275" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="375" y="275" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="347" y="300" text-anchor="middle" class="value">20</text>
+  <text x="402" y="300" text-anchor="middle" class="value" font-size="11">next</text>
+
+  <line x1="430" y1="295" x2="518" y2="295" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node C -->
+  <rect x="520" y="275" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="575" y="275" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="547" y="300" text-anchor="middle" class="value">30</text>
+  <text x="602" y="300" text-anchor="middle" class="value" font-size="11">next</text>
+
+  <line x1="630" y1="295" x2="688" y2="295" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="690" y="285" width="65" height="22" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="722" y="301" text-anchor="middle" class="deleted">nullptr</text>
+
+  <!-- ==================== Step 3 ==================== -->
+  <text x="30" y="355" class="step-label">Step 3: delete temp (node is freed)</text>
+  <text x="30" y="372" class="code">delete temp;</text>
+
+  <!-- head_ pointer — straight down to node B -->
+  <text x="347" y="393" text-anchor="middle" class="pointer-label">head_</text>
+  <line x1="347" y1="398" x2="347" y2="418" stroke="#8e44ad" stroke-width="2" marker-end="url(#ptr-arrow)"/>
+
+  <!-- Node A — deleted (X'd out) -->
+  <rect x="120" y="420" width="110" height="40" rx="4" fill="#fadbd8" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="120" y1="420" x2="230" y2="460" stroke="#e74c3c" stroke-width="2.5"/>
+  <line x1="230" y1="420" x2="120" y2="460" stroke="#e74c3c" stroke-width="2.5"/>
+  <text x="175" y="445" text-anchor="middle" class="deleted">deleted</text>
+
+  <!-- Node B -->
+  <rect x="320" y="420" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="375" y="420" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="347" y="445" text-anchor="middle" class="value">20</text>
+  <text x="402" y="445" text-anchor="middle" class="value" font-size="11">next</text>
+
+  <line x1="430" y1="440" x2="518" y2="440" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node C -->
+  <rect x="520" y="420" width="55" height="40" rx="4" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+  <rect x="575" y="420" width="55" height="40" rx="4" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+  <text x="547" y="445" text-anchor="middle" class="value">30</text>
+  <text x="602" y="445" text-anchor="middle" class="value" font-size="11">next</text>
+
+  <line x1="630" y1="440" x2="688" y2="440" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="690" y="430" width="65" height="22" rx="4" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="722" y="446" text-anchor="middle" class="deleted">nullptr</text>
+
+  <!-- Bottom note -->
+  <text x="400" y="500" text-anchor="middle" class="note">Repeat steps 1-3 until head_ == nullptr (all nodes freed, no memory leaked)</text>
+</svg>
