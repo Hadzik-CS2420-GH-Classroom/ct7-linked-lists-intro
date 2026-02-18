@@ -27,12 +27,9 @@ SinglyLinkedList::~SinglyLinkedList() {
         //   pointer to the current node and can never delete it.
         //   Order matters: save → advance → delete.
 
-        // TODO: Save the current head_ into a temp pointer
-
-        // TODO: Advance head_ to the next node
-
-        // TODO: Delete the temp pointer (frees the old head node)
-
+        Node* temp = head_;        // Save the current head_ into a temp pointer
+        head_ = head_->next;       // Advance head_ to the next node
+        delete temp;               // Delete the temp pointer (frees the old head node)
     }
 }
 
@@ -48,25 +45,21 @@ void SinglyLinkedList::push_front(int value) {
     //   Compare this to an array: inserting at the front means shifting
     //   EVERY element one slot to the right — O(n).
 
-    // TODO: Create a new Node with 'value' and whose next points to head_,
-    //       then update head_ to point to the new node.
-
-    // TODO: Increment size_
-
+    head_ = new Node{value, head_}; // Create new Node with 'value', next points to head_; update head_
+    ++size_;                        // Increment size_
 }
 
 // ? SEE DIAGRAM: images/svgs/push_back.svg — shows traversing to the last node, then linking the new node
 
 void SinglyLinkedList::push_back(int value) {
-    // TODO: Create a new Node with 'value' (next defaults to nullptr)
-
+    Node* new_node = new Node{value}; // Create a new Node with 'value' (next defaults to nullptr)
 
     if (!head_) {
         // ! DISCUSSION: Empty list is a special case.
         //   There's no existing node to attach to, so the new node
         //   simply becomes the head.
 
-        // TODO: Set head_ to the new node
+        head_ = new_node; // Set head_ to the new node
 
     } else {
         // ! DISCUSSION: We must traverse to the END of the list to find the
@@ -76,16 +69,16 @@ void SinglyLinkedList::push_back(int value) {
         //   We could fix this by keeping a 'tail' pointer, but that adds
         //   complexity we'll explore later.
 
-        // TODO: Create a 'current' pointer starting at head_
+        Node* current = head_;              // Create a 'current' pointer starting at head_
 
-        // TODO: Traverse to the last node (while current->next is not nullptr)
+        while (current->next) {             // Traverse to the last node (while current->next is not nullptr)
+            current = current->next;
+        }
 
-        // TODO: Link the new node to the end of the list
-
+        current->next = new_node;           // Link the new node to the end of the list
     }
 
-    // TODO: Increment size_
-
+    ++size_; // Increment size_
 }
 
 // --- Removal ---
@@ -109,14 +102,10 @@ void SinglyLinkedList::pop_front() {
     //   std::queue::pop) is to return void and provide a separate
     //   top()/front() method to peek first.
 
-    // TODO: Save head_ into a temp pointer
-
-    // TODO: Advance head_ to the next node
-
-    // TODO: Delete the temp pointer
-
-    // TODO: Decrement size_
-
+    Node* temp = head_;    // Save head_ into a temp pointer
+    head_ = head_->next;   // Advance head_ to the next node
+    delete temp;           // Delete the temp pointer
+    --size_;               // Decrement size_
 }
 
 // ? SEE DIAGRAM: images/svgs/pop_back.svg — shows trailing pointer pattern to find and remove the last node
@@ -130,8 +119,9 @@ void SinglyLinkedList::pop_back() {
     //   If head_->next is nullptr, the head IS the tail. Just delete
     //   it and set head_ to nullptr. No traversal needed.
     if (!head_->next) {
-        // TODO: Delete head_ and set it to nullptr, then decrement size_
-
+        delete head_;   // Delete head_ and set it to nullptr, then decrement size_
+        head_ = nullptr;
+        --size_;
         return;
     }
 
@@ -153,22 +143,22 @@ void SinglyLinkedList::pop_back() {
     //   linked lists. A doubly linked list fixes this by giving each
     //   node a 'prev' pointer — we'll see that later.
 
-    // TODO: Create two pointers: 'current' and 'previous', both starting at head_
+    Node* previous = head_; // Create two pointers: 'current' and 'previous', both starting at head_
+    Node* current  = head_;
 
-    // TODO: Traverse the list until current reaches the last node.
-    //       In each iteration, advance previous to current, then advance current to current->next.
+    while (current->next) { // Traverse until current reaches the last node
+        previous = current; // Advance previous to current, then current to current->next
+        current  = current->next;
+    }
 
     // ! DISCUSSION: Now 'current' is the last node and 'previous' is
     //   the second-to-last. We unlink and delete:
     //     1. Set previous->next to nullptr (it's now the new tail)
     //     2. Delete current (free the old tail's memory)
 
-    // TODO: Set previous->next to nullptr
-
-    // TODO: Delete current
-
-    // TODO: Decrement size_
-
+    previous->next = nullptr; // Set previous->next to nullptr
+    delete current;           // Delete current
+    --size_;                  // Decrement size_
 }
 
 // --- Search ---
@@ -191,15 +181,16 @@ bool SinglyLinkedList::contains(int value) const {
     //   We don't need a trailing pointer here because we're just
     //   reading — no pointer surgery needed.
 
-    // TODO: Create a 'current' pointer starting at head_
+    Node* current = head_; // Create a 'current' pointer starting at head_
 
-    // TODO: While current is not nullptr:
-    //         If current->data equals value, return true.
-    //         Advance current to current->next.
+    while (current) {                   // While current is not nullptr:
+        if (current->data == value) {   //   If current->data equals value, return true.
+            return true;
+        }
+        current = current->next;        //   Advance current to current->next.
+    }
 
-    // TODO: If the loop finishes without finding value, return false
-
-    return false; // placeholder — remove this line when done
+    return false; // If the loop finishes without finding value, return false
 }
 
 // --- Remove by value ---
@@ -223,8 +214,7 @@ void SinglyLinkedList::remove(int value) {
     //   We CANNOT use the trailing pointer pattern here because there
     //   is no node before head_.
     if (head_->data == value) {
-        // TODO: Call pop_front() to remove the head node
-
+        pop_front(); // Call pop_front() to remove the head node
         return;
     }
 
@@ -241,18 +231,19 @@ void SinglyLinkedList::remove(int value) {
     //
     //   If we reach nullptr without a match, the value isn't in the list.
 
-    // TODO: Create 'previous' pointing to head_, and 'current' pointing to head_->next
+    Node* previous = head_;        // Create 'previous' pointing to head_,
+    Node* current  = head_->next;  //   and 'current' pointing to head_->next
 
-    // TODO: While current is not nullptr:
-    //         If current->data == value:
-    //           Set previous->next to current->next  (unlink current)
-    //           Delete current
-    //           Decrement size_
-    //           Return
-    //         Otherwise:
-    //           Advance previous to current
-    //           Advance current to current->next
-
+    while (current) {                       // While current is not nullptr:
+        if (current->data == value) {
+            previous->next = current->next; //   Set previous->next to current->next (unlink current)
+            delete current;                 //   Delete current
+            --size_;                        //   Decrement size_
+            return;                         //   Return
+        }
+        previous = current;                 //   Otherwise: advance previous to current
+        current  = current->next;           //              advance current to current->next
+    }
 }
 
 // --- Getters ---
@@ -269,10 +260,12 @@ void SinglyLinkedList::print() const {
     //   This is the fundamental traversal pattern for linked lists —
     //   you'll see it in search, remove, and every other operation.
 
-    // TODO: Create a 'current' pointer starting at head_
+    Node* current = head_; // Create a 'current' pointer starting at head_
 
-    // TODO: While current is not nullptr, print current->data followed by " -> ",
-    //       then advance current to current->next.
+    while (current) {                                  // While current is not nullptr,
+        std::cout << current->data << " -> ";          //   print current->data followed by " -> ",
+        current = current->next;                       //   then advance current to current->next.
+    }
 
     std::cout << "nullptr\n";
 }

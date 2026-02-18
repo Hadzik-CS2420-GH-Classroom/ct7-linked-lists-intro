@@ -49,7 +49,7 @@ int main() {
     std::cout << "--- 2. VIP cuts to the front ---\n";
 
     std::cout << "push_front(200) -- VIP cuts to the front!\n";
-    // TODO: Use push_front to add ticket 200 to the front of the line
+    line.push_front(200); // Use push_front to add ticket 200 to the front of the line
 
     std::cout << "Current line: ";
     line.print();
@@ -64,14 +64,14 @@ int main() {
     std::cout << "--- 3. Serving customers ---\n";
 
     std::cout << "pop_front() -- Serving ticket at the front\n";
-    // TODO: Use pop_front to remove the first customer from the line
+    line.pop_front(); // Use pop_front to remove the first customer from the line
 
     std::cout << "Current line: ";
     line.print();
     std::cout << std::format("People waiting: {}\n\n", line.get_size());
 
     std::cout << "pop_front() -- Serving another ticket\n";
-    // TODO: Use pop_front to remove the next customer from the line
+    line.pop_front(); // Use pop_front to remove the next customer from the line
 
     std::cout << "Current line: ";
     line.print();
@@ -104,7 +104,7 @@ int main() {
     std::cout << "--- 5. Customer at the back gives up ---\n";
 
     std::cout << "pop_back() -- Ticket at the back gives up waiting\n";
-    // TODO: Use pop_back to remove the last customer from the line
+    line.pop_back(); // Use pop_back to remove the last customer from the line
 
     std::cout << "Current line: ";
     line.print();
@@ -142,12 +142,11 @@ int main() {
     // --- 6. Searching for items (contains) ---
     std::cout << "--- 6. Checking if items are in the system ---\n";
 
-    // TODO: Use contains() to check if item 1003 is in the list.
-    //       Print "Item 1003 found: true" or "Item 1003 found: false".
-    //       (Hint: use std::boolalpha or a ternary to print true/false)
+    // Use contains() to check if item 1003 is in the list.
+    std::cout << std::format("Item 1003 found: {}\n", lost_and_found.contains(1003) ? "true" : "false");
 
-    // TODO: Use contains() to check if item 9999 is in the list.
-    //       Print "Item 9999 found: true" or "Item 9999 found: false".
+    // Use contains() to check if item 9999 is in the list.
+    std::cout << std::format("Item 9999 found: {}\n", lost_and_found.contains(9999) ? "true" : "false");
 
     std::cout << "\n";
 
@@ -159,15 +158,15 @@ int main() {
     std::cout << "--- 7. Removing claimed items ---\n";
 
     std::cout << "remove(1005) — tail:   ";
-    // TODO: Call remove(1005), then print the list
+    lost_and_found.remove(1005); // Call remove(1005), then print the list
     lost_and_found.print();
 
     std::cout << "remove(1002) — middle: ";
-    // TODO: Call remove(1002), then print the list
+    lost_and_found.remove(1002); // Call remove(1002), then print the list
     lost_and_found.print();
 
     std::cout << "remove(1001) — head:   ";
-    // TODO: Call remove(1001), then print the list
+    lost_and_found.remove(1001); // Call remove(1001), then print the list
     lost_and_found.print();
 
     std::cout << std::format("Items remaining: {}\n", lost_and_found.get_size());
