@@ -13,7 +13,7 @@
 
 class SinglyLinkedList {
 public:
-    
+
     SinglyLinkedList() = default;
     ~SinglyLinkedList();
 
@@ -40,6 +40,9 @@ public:
     void push_back(int value);  // insert a new node at the tail — O(n)
     void pop_front();           // remove the head node — O(1)
     void pop_back();            // remove the tail node — O(n)
+
+    bool contains(int value) const; // search for a value — O(n)
+    void remove(int value);         // remove first node with value — O(n)
 
     int get_size() const noexcept;
     bool is_empty() const noexcept;

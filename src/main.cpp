@@ -4,7 +4,7 @@
 #include <iostream>
 
 int main() {
-    std::cout << "=== Code-Together 7: Farr's Ice Cream Ticket Queue ===\n\n";
+    std::cout << "=== Code-Together 7: Singly Linked List — Farr's Ice Cream ===\n\n";
 
     // ! DISCUSSION: Arrays vs linked lists — when to use which?
     //   Imagine Farr's Ice Cream on a busy Friday night. Customers grab
@@ -20,19 +20,23 @@ int main() {
     //   Linked lists: Fast insert/remove at front (just move pointers),
     //            but no random access (must walk to find ticket #5).
 
+    // =========================================================================
+    // PART 1 — Basic Operations
+    // =========================================================================
+
     SinglyLinkedList line;
 
     // --- 1. Customers arrive (push_back) ---
     std::cout << "--- 1. Customers arriving at Farr's ---\n";
 
     std::cout << "push_back(101) -- Ticket #101 arrives\n";
-    // TODO: Use push_back to add ticket 101 to the line
+    line.push_back(101);
 
     std::cout << "push_back(102) -- Ticket #102 arrives\n";
-    // TODO: Use push_back to add ticket 102 to the line
+    line.push_back(102);
 
     std::cout << "push_back(103) -- Ticket #103 arrives\n";
-    // TODO: Use push_back to add ticket 103 to the line
+    line.push_back(103);
 
     std::cout << "Current line: ";
     line.print();
@@ -82,10 +86,10 @@ int main() {
     std::cout << "--- 4. More customers arrive ---\n";
 
     std::cout << "push_back(104) -- Ticket #104 arrives\n";
-    // TODO: Use push_back to add ticket 104
+    line.push_back(104);
 
     std::cout << "push_back(105) -- Ticket #105 arrives\n";
-    // TODO: Use push_back to add ticket 105
+    line.push_back(105);
 
     std::cout << "Current line: ";
     line.print();
@@ -101,7 +105,6 @@ int main() {
 
     std::cout << "pop_back() -- Ticket at the back gives up waiting\n";
     // TODO: Use pop_back to remove the last customer from the line
-   
 
     std::cout << "Current line: ";
     line.print();
@@ -113,6 +116,61 @@ int main() {
     //   pop_front just moves head — O(1). pop_back must traverse — O(n).
     //   This is a key tradeoff of singly linked lists. A doubly linked
     //   list solves this with a 'prev' pointer on each node.
+
+    // =========================================================================
+    // PART 2 — Search and Remove (Lost & Found scenario)
+    // =========================================================================
+
+    std::cout << "=== Part 2: Search and Remove — Campus Lost & Found ===\n\n";
+
+    // ! DISCUSSION: The same list structure works for a Lost & Found inventory.
+    //   Items are logged by ID. Staff need to search for items and remove
+    //   them when claimed. These operations reuse the traversal pattern
+    //   from print() and the trailing pointer pattern from pop_back().
+
+    SinglyLinkedList lost_and_found;
+    lost_and_found.push_back(1001); // laptop
+    lost_and_found.push_back(1002); // backpack
+    lost_and_found.push_back(1003); // water bottle
+    lost_and_found.push_back(1004); // keys
+    lost_and_found.push_back(1005); // umbrella
+
+    std::cout << "Current inventory: ";
+    lost_and_found.print();
+    std::cout << std::format("Items on record: {}\n\n", lost_and_found.get_size());
+
+    // --- 6. Searching for items (contains) ---
+    std::cout << "--- 6. Checking if items are in the system ---\n";
+
+    // TODO: Use contains() to check if item 1003 is in the list.
+    //       Print "Item 1003 found: true" or "Item 1003 found: false".
+    //       (Hint: use std::boolalpha or a ternary to print true/false)
+
+    // TODO: Use contains() to check if item 9999 is in the list.
+    //       Print "Item 9999 found: true" or "Item 9999 found: false".
+
+    std::cout << "\n";
+
+    // ! DISCUSSION: contains() traverses the entire list in the worst case.
+    //   Item 1003 is near the middle — O(n/2) average.
+    //   Item 9999 isn't there at all — O(n) because we walk the whole list.
+
+    // --- 7. Removing claimed items ---
+    std::cout << "--- 7. Removing claimed items ---\n";
+
+    std::cout << "remove(1005) — tail:   ";
+    // TODO: Call remove(1005), then print the list
+    lost_and_found.print();
+
+    std::cout << "remove(1002) — middle: ";
+    // TODO: Call remove(1002), then print the list
+    lost_and_found.print();
+
+    std::cout << "remove(1001) — head:   ";
+    // TODO: Call remove(1001), then print the list
+    lost_and_found.print();
+
+    std::cout << std::format("Items remaining: {}\n", lost_and_found.get_size());
 
     return 0;
 }

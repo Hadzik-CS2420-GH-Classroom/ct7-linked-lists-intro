@@ -165,9 +165,93 @@ void SinglyLinkedList::pop_back() {
 
     // TODO: Set previous->next to nullptr
 
-    // TODO: Delete current 
+    // TODO: Delete current
 
     // TODO: Decrement size_
+
+}
+
+// --- Search ---
+
+// ! DISCUSSION: contains() is a read-only search — it just answers
+//   "is this value in the list?" without modifying anything.
+//   We use the same traversal pattern from print():
+//     current starts at head, follows next until nullptr.
+//   If we find a node whose data matches, return true immediately.
+//   If we reach nullptr without finding it, return false.
+//
+// ! DISCUSSION: This is O(n) in the worst case — we may have to look
+//   at every node. There's no shortcut for an unsorted list.
+//   Compare this to an array with binary search: O(log n), but only
+//   if the array is sorted. Linked lists can't do binary search at all
+//   because they have no random access.
+
+bool SinglyLinkedList::contains(int value) const {
+    // ! DISCUSSION: Start at the head and walk the chain.
+    //   We don't need a trailing pointer here because we're just
+    //   reading — no pointer surgery needed.
+
+    // TODO: Create a 'current' pointer starting at head_
+
+    // TODO: While current is not nullptr:
+    //         If current->data equals value, return true.
+    //         Advance current to current->next.
+
+    // TODO: If the loop finishes without finding value, return false
+
+    return false; // placeholder — remove this line when done
+}
+
+// --- Remove by value ---
+
+// ! DISCUSSION: remove() deletes the FIRST node whose data matches value.
+//   If the value isn't in the list, do nothing.
+//   This combines the traversal pattern (find the node) with the
+//   trailing pointer pattern (unlink it safely).
+//
+// ! DISCUSSION: Why do we need special cases again?
+//   Just like pop_back, the logic differs depending on:
+//     1. The list is empty — nothing to remove
+//     2. The match is the HEAD node — no previous node to update
+//     3. The match is in the middle or tail — trailing pointer needed
+
+void SinglyLinkedList::remove(int value) {
+    if (!head_) return;
+
+    // ! DISCUSSION: Special case — the value is at the head.
+    //   If head_->data matches, we just pop_front and we're done.
+    //   We CANNOT use the trailing pointer pattern here because there
+    //   is no node before head_.
+    if (head_->data == value) {
+        // TODO: Call pop_front() to remove the head node
+
+        return;
+    }
+
+    // ! DISCUSSION: The trailing pointer pattern for middle/tail removal.
+    //   We need TWO pointers:
+    //     'previous' — the node we came from
+    //     'current'  — the node we're inspecting
+    //
+    //   When current->data == value:
+    //     - previous->next = current->next  (skip over current)
+    //     - delete current                  (free the memory)
+    //     - --size_
+    //     - return
+    //
+    //   If we reach nullptr without a match, the value isn't in the list.
+
+    // TODO: Create 'previous' pointing to head_, and 'current' pointing to head_->next
+
+    // TODO: While current is not nullptr:
+    //         If current->data == value:
+    //           Set previous->next to current->next  (unlink current)
+    //           Delete current
+    //           Decrement size_
+    //           Return
+    //         Otherwise:
+    //           Advance previous to current
+    //           Advance current to current->next
 
 }
 
