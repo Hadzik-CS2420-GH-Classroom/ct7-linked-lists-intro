@@ -153,10 +153,11 @@ void SinglyLinkedList::pop_back() {
     //   linked lists. A doubly linked list fixes this by giving each
     //   node a 'prev' pointer — we'll see that later.
 
-    // TODO: Create two pointers: 'current' and 'previous', both starting at head_
+    // TODO: Create 'previous' pointing to head_, and 'current' pointing to head_->next
 
-    // TODO: Traverse the list until current reaches the last node.
-    //       In each iteration, advance previous to current, then advance current to current->next.
+    // TODO: While current->next is not nullptr:
+    //         Advance previous to current
+    //         Advance current to current->next
 
     // ! DISCUSSION: Now 'current' is the last node and 'previous' is
     //   the second-to-last. We unlink and delete:
