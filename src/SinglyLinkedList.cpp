@@ -133,11 +133,11 @@ void SinglyLinkedList::pop_back() {
     //   pop_front which is O(1). This is a key weakness of singly
     //   linked lists. A doubly linked list fixes this by giving each
     //   node a 'prev' pointer — we'll see that later.
-    auto* current = head_;
     auto* previous = head_;
+    auto* current  = head_->next;
     while (current->next) {
         previous = current;
-        current = current->next;
+        current  = current->next;
     }
 
     // ! DISCUSSION: Now 'current' is the last node and 'previous' is
