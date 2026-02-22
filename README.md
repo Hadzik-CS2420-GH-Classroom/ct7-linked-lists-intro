@@ -2,14 +2,14 @@
 
 ## Overview
 
-An in-class code-together activity introducing singly linked lists through two practical scenarios: a Farr's Ice Cream ticket queue (push/pop operations) and a Campus Lost & Found system (search and remove). Students implement all core list operations by completing TODO items as the instructor walks through concepts and diagrams.
+An in-class code-together activity introducing singly linked lists through a Farr's Ice Cream ticket queue scenario. Students implement all core list operations — destructor, push/pop front & back, and print — by completing TODO items as the instructor walks through concepts and diagrams. Search and remove operations are covered in CT8.
 
 ## Files
 
 | File | Focus | TODOs |
 |---|---|---|
-| `SinglyLinkedList.cpp` | Destructor, push/pop front & back, `contains`, `remove` | 26 |
-| `main.cpp` | Ice cream queue (Part 1) + Lost & Found (Part 2) scenarios | 8 |
+| `SinglyLinkedList.cpp` | Destructor, push/pop front & back, print traversal | 18 |
+| `main.cpp` | Ice cream queue: customers arrive, VIP cuts, customers served, back customer leaves | 4 |
 
 ## Supporting Files
 
@@ -21,8 +21,6 @@ An in-class code-together activity introducing singly linked lists through two p
 ## Teaching Order
 
 Work through `SinglyLinkedList.cpp` in the order the operations are used in `main.cpp`:
-
-### Part 1 — Basic Operations
 
 #### 1. Destructor -- Why Manual Cleanup Matters
 - Why `delete head_` alone leaks the rest of the chain
@@ -54,18 +52,7 @@ Work through `SinglyLinkedList.cpp` in the order the operations are used in `mai
 
 #### 6. `print` -- Traversing the List
 - Fundamental traversal pattern: `current` starts at head, follows `next` until nullptr
-- Same pattern reused in `contains` and `remove`
-
-### Part 2 — Search and Remove
-
-#### 7. `contains` -- Searching the Inventory
-- Same traversal as `print()` — return true on match, false at nullptr
-- O(n) worst case; no shortcut for an unsorted list
-
-#### 8. `remove` -- Claiming Items
-- Three cases: empty list, head match, middle/tail match
-- Head match delegates to `pop_front()` — O(1)
-- Middle/tail uses trailing pointer pattern — unlinks and deletes in O(n)
+- Same pattern reused in CT8's `contains` and `remove`
 
 ## Key Concepts
 
