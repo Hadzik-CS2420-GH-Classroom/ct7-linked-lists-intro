@@ -6,7 +6,7 @@
 //   wherever the OS finds space. The 'next' pointer is what chains
 //   them together — it stores the ADDRESS of the next node.
 //
-// ? SEE DIAGRAM: images/svgs/node_vs_array.svg — array (contiguous) vs nodes (scattered, pointer-linked)
+// ? SEE DIAGRAM: images/node_vs_array.png — array (contiguous) vs nodes (scattered, pointer-linked)
 //
 // ! DISCUSSION: "Why a struct and not a class?"
 //   A struct is just a class where everything is public by default.

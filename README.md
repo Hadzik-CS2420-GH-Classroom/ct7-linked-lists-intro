@@ -65,7 +65,7 @@ Work through `SinglyLinkedList.cpp` in the order the operations are used in `mai
 
 ## Diagrams
 
-SVG sources are in `images/svgs/`, PNG exports in `images/`.
+PNGs are in `images/`. SVG sources are in `images/svgs/` (for editing).
 
 | Diagram | Referenced In | Shows |
 |---|---|---|

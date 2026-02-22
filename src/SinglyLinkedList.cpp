@@ -17,7 +17,7 @@
 //   is still out there, unreachable and leaked. We must follow the
 //   next pointers and delete each node individually.
 //
-// ? SEE DIAGRAM: images/svgs/destructor_walk.svg — traversing the chain, deleting each node
+// ? SEE DIAGRAM: images/destructor_walk.png — traversing the chain, deleting each node
 
 SinglyLinkedList::~SinglyLinkedList() {
     while (head_) {
@@ -38,7 +38,7 @@ SinglyLinkedList::~SinglyLinkedList() {
 
 // --- Insertion ---
 
-// ? SEE DIAGRAM: images/svgs/push_front.svg — shows new node's next pointing to old head, then head moving
+// ? SEE DIAGRAM: images/push_front.png — shows new node's next pointing to old head, then head moving
 
 void SinglyLinkedList::push_front(int value) {
     // ! DISCUSSION: This is the beauty of push_front — it's always O(1).
@@ -55,7 +55,7 @@ void SinglyLinkedList::push_front(int value) {
 
 }
 
-// ? SEE DIAGRAM: images/svgs/push_back.svg — shows traversing to the last node, then linking the new node
+// ? SEE DIAGRAM: images/push_back.png — shows traversing to the last node, then linking the new node
 
 void SinglyLinkedList::push_back(int value) {
     // TODO: Create a new Node with 'value' (next defaults to nullptr)
@@ -90,7 +90,7 @@ void SinglyLinkedList::push_back(int value) {
 
 // --- Removal ---
 
-// ? SEE DIAGRAM: images/svgs/pop_front.svg — shows saving head, advancing head, deleting old head
+// ? SEE DIAGRAM: images/pop_front.png — shows saving head, advancing head, deleting old head
 
 void SinglyLinkedList::pop_front() {
     if (!head_) {
@@ -119,7 +119,7 @@ void SinglyLinkedList::pop_front() {
 
 }
 
-// ? SEE DIAGRAM: images/svgs/pop_back.svg — shows trailing pointer pattern to find and remove the last node
+// ? SEE DIAGRAM: images/pop_back.png — shows trailing pointer pattern to find and remove the last node
 
 void SinglyLinkedList::pop_back() {
     if (!head_) {
