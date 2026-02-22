@@ -186,10 +186,12 @@ void SinglyLinkedList::print() const {
     //   This is the fundamental traversal pattern for linked lists —
     //   you'll see it again in search and remove operations (CT8).
 
-    // TODO: Create a 'current' pointer starting at head_
+    Node* current = head_;
 
-    // TODO: While current is not nullptr, print current->data followed by " -> ",
-    //       then advance current to current->next.
+    while (current) {
+        std::cout << std::format("{} -> ", current->data);
+        current = current->next;
+    }
 
     std::cout << "nullptr\n";
 }
