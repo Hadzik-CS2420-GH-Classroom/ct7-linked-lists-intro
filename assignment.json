@@ -1,9 +1,10 @@
 {
   "assignment": {
-    "canvas_title": "👨‍💻 Code-Together 7: Singly Linked List Introduction",
-    "points_possible": 30,
-    "submission_types": ["online_url"],
-    "github_classroom": true,
-    "grading_type": "points"
+    "canvas_title":         "👨‍💻 Code-Together 7: Singly Linked List Introduction",
+    "points_possible":      50,
+    "submission_types":     ["online_url"],
+    "github_classroom":     true,
+    "github_classroom_url": "",
+    "github_template_url":  "https://github.com/Hadzik-CS2420-GH-Classroom/ct7-linked-lists-intro"
   }
 }
