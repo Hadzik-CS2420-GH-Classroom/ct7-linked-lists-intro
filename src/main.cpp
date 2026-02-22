@@ -104,5 +104,58 @@ int main() {
     //   This is a key tradeoff of singly linked lists. A doubly linked
     //   list solves this with a 'prev' pointer on each node.
 
+    // =========================================================================
+    // PART 2 — Search and Remove (Lost & Found scenario)
+    // =========================================================================
+
+    std::cout << "=== Part 2: Search and Remove — Campus Lost & Found ===\n\n";
+
+    // ! DISCUSSION: The same list structure works for a Lost & Found inventory.
+    //   Items are logged by ID. Staff need to search for items and remove
+    //   them when claimed. These operations reuse the traversal pattern
+    //   from print() and the trailing pointer pattern from pop_back().
+
+    SinglyLinkedList lost_and_found;
+    lost_and_found.push_back(1001); // laptop
+    lost_and_found.push_back(1002); // backpack
+    lost_and_found.push_back(1003); // water bottle
+    lost_and_found.push_back(1004); // keys
+    lost_and_found.push_back(1005); // umbrella
+
+    std::cout << "Current inventory: ";
+    lost_and_found.print();
+    std::cout << std::format("Items on record: {}\n\n", lost_and_found.get_size());
+
+    // --- 6. Searching for items (contains) ---
+    std::cout << "--- 6. Checking if items are in the system ---\n";
+
+    std::cout << std::format("Item 1003 found: {}\n",
+        lost_and_found.contains(1003) ? "true" : "false");
+    std::cout << std::format("Item 9999 found: {}\n",
+        lost_and_found.contains(9999) ? "true" : "false");
+
+    std::cout << "\n";
+
+    // ! DISCUSSION: contains() traverses the entire list in the worst case.
+    //   Item 1003 is near the middle — O(n/2) average.
+    //   Item 9999 isn't there at all — O(n) because we walk the whole list.
+
+    // --- 7. Removing claimed items ---
+    std::cout << "--- 7. Removing claimed items ---\n";
+
+    std::cout << "remove(1005) — tail:   ";
+    lost_and_found.remove(1005);
+    lost_and_found.print();
+
+    std::cout << "remove(1002) — middle: ";
+    lost_and_found.remove(1002);
+    lost_and_found.print();
+
+    std::cout << "remove(1001) — head:   ";
+    lost_and_found.remove(1001);
+    lost_and_found.print();
+
+    std::cout << std::format("Items remaining: {}\n", lost_and_found.get_size());
+
     return 0;
 }
