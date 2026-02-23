@@ -11,7 +11,7 @@ static std::string capturePrint(const SinglyLinkedList& list) {
     return buffer.str();
 }
 
-// ==================== Destructor (5 points) ====================
+// ==================== Destructor (6 points) ====================
 
 TEST(SinglyLinkedListTest, DestructorFreesMemory) {
     auto* list = new SinglyLinkedList();
@@ -99,7 +99,7 @@ TEST(SinglyLinkedListTest, PopBackToEmpty) {
     EXPECT_TRUE(list.is_empty());
 }
 
-// ==================== Getters & Print (5 points) ====================
+// ==================== Getters & Print (8 points) ====================
 
 TEST(SinglyLinkedListTest, IsEmptyOnNewList) {
     SinglyLinkedList list;
@@ -110,4 +110,12 @@ TEST(SinglyLinkedListTest, IsEmptyOnNewList) {
 TEST(SinglyLinkedListTest, PrintEmptyList) {
     SinglyLinkedList list;
     EXPECT_TRUE(capturePrint(list).find("nullptr") != std::string::npos);
+}
+
+TEST(SinglyLinkedListTest, PrintPopulatedList) {
+    SinglyLinkedList list;
+    list.push_back(10);
+    list.push_back(20);
+    list.push_back(30);
+    EXPECT_TRUE(capturePrint(list).find("10 -> 20 -> 30 -> nullptr") != std::string::npos);
 }
