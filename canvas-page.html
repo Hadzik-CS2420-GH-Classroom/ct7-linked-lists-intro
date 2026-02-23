@@ -1,0 +1,273 @@
+<h2>👨&zwj;💻 Code-Together 7 &mdash; Singly Linked List Introduction</h2>
+<h3>🎯 Overview</h3>
+<p>In this in-class activity, you&rsquo;ll build a singly linked list from scratch using a Farr&rsquo;s Ice Cream ticket queue scenario. You&rsquo;ll complete TODO items in two source files while we walk through concepts together using discussion comments and diagrams.</p>
+<h3>📖 Learning Objectives</h3>
+<p>By completing this activity, you will be able to:</p>
+<ul>
+    <li>Create a <strong>Node struct</strong> with data and a next pointer for building linked chains</li>
+    <li>Implement <strong>push_front</strong> and <strong>push_back</strong> to insert nodes at the front and back of a list</li>
+    <li>Implement <strong>pop_front</strong> and <strong>pop_back</strong> to remove nodes from the front and back</li>
+    <li>Use the <strong>temp pointer pattern</strong> (save, advance, delete) to safely free nodes</li>
+    <li>Use the <strong>trailing pointer pattern</strong> (previous/current) to find the second-to-last node</li>
+    <li>Explain <strong>O(1) vs O(n)</strong> tradeoffs between front and back operations on a singly linked list</li>
+    <li>Write a proper <strong>destructor</strong> that traverses and frees every node to prevent memory leaks</li>
+</ul>
+<h3>🚀 Getting Started</h3>
+<h4>Step 1: Accept the Assignment</h4>
+<p>Click the button below to create your personal repository:</p>
+<p><a style="display: inline-block; padding: 10px 24px; font-size: 1em; color: #fff; background-color: #0b874b; border-radius: 4px; text-decoration: none;" href="https://classroom.github.com/a/sjiV_-Z1" target="_blank" rel="noopener">Accept Assignment on GitHub</a></p>
+<div style="padding: 14px 18px; border-radius: 4px; margin-bottom: 16px; background-color: #fcf8e3; border: 1px solid #faebcc; color: #8a6d3b;"><strong>Repository Access Issue?</strong><br />If you don&rsquo;t see the repository after accepting, check your email for the GitHub invite.</div>
+<h4>Step 2: Clone in Visual Studio</h4>
+<ol>
+    <li>Open <strong>Visual Studio</strong></li>
+    <li>On the start window, click <strong>&ldquo;Clone a repository&rdquo;</strong></li>
+    <li>Paste your repository URL (from GitHub) into the <strong>Repository location</strong> field</li>
+    <li>Choose a local path and click <strong>Clone</strong></li>
+    <li>Visual Studio should automatically detect the CMake project and configure it</li>
+</ol>
+<div style="padding: 14px 18px; border-radius: 4px; margin-bottom: 16px; background-color: #d9edf7; border: 1px solid #bce8f1; color: #31708f;">Follow the <strong>Troubleshooting</strong> section at the bottom if CMake does not configure automatically.</div>
+<h4>Step 3: Wait for CMake Configuration</h4>
+<p>Visual Studio will automatically run CMake. Watch the <strong>Output</strong> window (<em>View &rarr; Output</em>, select <em>&ldquo;Show output from: CMake&rdquo;</em>) until you see:</p>
+<pre style="background-color: #1e1e1e; color: #d4d4d4; padding: 16px 20px; border-radius: 4px; overflow-x: auto; font-family: 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace; font-size: 0.875em; line-height: 1.6;">CMake generation finished.</pre>
+<h3>📁 Project Structure</h3>
+<pre style="background-color: #1e1e1e; color: #d4d4d4; padding: 16px 20px; border-radius: 4px; font-family: 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace; font-size: 0.875em; line-height: 1.8;"><span style="color: #569cd6;">ct7-linked-lists-intro/</span>
+  <span style="color: #569cd6;">src/</span>
+    <span style="color: #ce9178;">main.cpp</span>                    <span style="color: #6a9955;">&larr; ice cream queue scenario (9 TODOs)</span>
+    <span style="color: #4ec9b0;">SinglyLinkedList.cpp</span>        <span style="color: #6a9955;">&larr; YOUR WORK: 23 TODOs</span>
+  <span style="color: #569cd6;">include/</span>
+    <span style="color: #ce9178;">Node.h</span>                      <span style="color: #6a9955;">&larr; Node struct (do NOT modify)</span>
+    <span style="color: #ce9178;">SinglyLinkedList.h</span>          <span style="color: #6a9955;">&larr; class declaration (do NOT modify)</span>
+  <span style="color: #569cd6;">tests/</span>
+    <span style="color: #ce9178;">singly_linked_list_test.cpp</span> <span style="color: #6a9955;">&larr; auto-grading tests</span>
+  <span style="color: #569cd6;">images/</span>
+    <span style="color: #ce9178;">*.png</span>                       <span style="color: #6a9955;">&larr; diagrams referenced in comments</span>
+    <span style="color: #569cd6;">svgs/</span>
+      <span style="color: #ce9178;">*.svg</span>                     <span style="color: #6a9955;">&larr; diagram source files</span>
+  <span style="color: #ce9178;">CMakeLists.txt</span></pre>
+<h3>📝 What You&rsquo;ll Do</h3>
+<p>Open <code>SinglyLinkedList.cpp</code> and <code>main.cpp</code>, then complete the <code>TODO</code> comments. Each TODO tells you what to write, and the <strong>DISCUSSION</strong> comments explain the &ldquo;why&rdquo; behind the code. We&rsquo;ll work through these together in class.</p>
+<h3>📚 Teaching Order</h3>
+<p>Work through <code>SinglyLinkedList.cpp</code> in the order <code>main.cpp</code> calls the operations:</p>
+<h4>1. Destructor &mdash; Why Manual Cleanup Matters (3 TODOs)</h4>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">Concept</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">What You&rsquo;ll Learn</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Temp pointer pattern</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Save, advance, delete &mdash; why order matters when freeing nodes</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Traversal loop</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Walking the chain with <code>while (head_)</code> to delete every node</td>
+        </tr>
+    </tbody>
+</table>
+<h4>2. <code>push_back</code> &mdash; Customers Join the Line (5 TODOs)</h4>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">Concept</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">What You&rsquo;ll Learn</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Empty list special case</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">New node becomes head when the list is empty</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Traversal to last node</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Following <code>next</code> pointers to find the tail &mdash; O(n) cost</td>
+        </tr>
+    </tbody>
+</table>
+<h4>3. <code>push_front</code> &mdash; VIP Cuts to the Front (2 TODOs)</h4>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">Concept</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">What You&rsquo;ll Learn</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">O(1) insertion</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">One-liner: create node, point to old head, update head &mdash; no traversal needed</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Array comparison</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Arrays must shift every element for front insertion &mdash; O(n)</td>
+        </tr>
+    </tbody>
+</table>
+<h4>4. <code>pop_front</code> &mdash; Serving the Next Customer (4 TODOs)</h4>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">Concept</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">What You&rsquo;ll Learn</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Temp pointer pattern (again)</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Same save-advance-delete pattern as the destructor</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">STL convention</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Why <code>pop</code> returns void &mdash; read first, then remove</td>
+        </tr>
+    </tbody>
+</table>
+<h4>5. <code>pop_back</code> &mdash; Customer at the Back Gives Up (5 TODOs)</h4>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">Concept</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">What You&rsquo;ll Learn</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Single-node special case</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">When head is the only node, delete it and set head to nullptr</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Trailing pointer pattern</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>previous</code> and <code>current</code> advance together to find the second-to-last node</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">O(n) cost</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Must traverse entire list &mdash; key weakness vs <code>pop_front</code></td>
+        </tr>
+    </tbody>
+</table>
+<h4>6. <code>print</code> &mdash; Traversing the List (2 TODOs)</h4>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">Concept</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">What You&rsquo;ll Learn</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Fundamental traversal</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>current</code> starts at head, follows <code>next</code> until nullptr</td>
+        </tr>
+    </tbody>
+</table>
+<h3>🖼️ Diagrams</h3>
+<p>Six diagrams are included in the <code>images/</code> folder and referenced in the source code comments. These help visualize what&rsquo;s happening with pointers and memory:</p>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">Diagram</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; text-align: left; background-color: #f5f5f5;">Shows</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>node_vs_array.png</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Array contiguous memory vs linked node chain</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>destructor_walk.png</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Traversing the chain with temp pointer, deleting each node</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>push_front.png</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">New node&rsquo;s next points to old head, then head moves</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>push_back.png</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Traversing to the last node, then linking the new node</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>pop_front.png</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Save head into temp, advance head, delete temp</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>pop_back.png</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Trailing pointer pattern: previous/current traversal, unlink and delete</td>
+        </tr>
+    </tbody>
+</table>
+<h3>📊 Grading (50 points)</h3>
+<p>Your code is auto-graded by GitHub Classroom when you push. Tests check each operation independently.</p>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; background-color: #f5f5f5;">Category</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; background-color: #f5f5f5;">Points</th>
+            <th style="border: 1px solid #c7cdd1; padding: 10px 14px; background-color: #f5f5f5;">What is tested</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Build</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">2</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Project compiles without errors</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Destructor</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">6</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Deleting a populated list runs without crash or leak</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>push_front</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">8</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Single element, multiple elements in correct order</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>push_back</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">8</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Single element, multiple elements in correct order</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>pop_front</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">8</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Removes head correctly, handles pop to empty</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>pop_back</code></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">10</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Removes tail correctly, handles single-node and pop to empty</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Getters &amp; Print</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">8</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>is_empty</code>, <code>get_size</code>, print empty and populated lists</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px; background-color: #f5f5f5;"><strong>Total</strong></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px; background-color: #f5f5f5;"><strong>50</strong></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px; background-color: #f5f5f5;"></td>
+        </tr>
+    </tbody>
+</table>
+<h3>🔧 Troubleshooting</h3>
+<h4>CMake does not configure automatically</h4>
+<ol>
+    <li>Make sure you have <strong>Desktop development with C++</strong> workload installed in Visual Studio</li>
+    <li>Go to <em>Project &rarr; CMake Settings</em> and ensure the configuration is correct</li>
+    <li>Try <em>Project &rarr; Delete Cache and Reconfigure</em></li>
+    <li>Verify that <code>CMakeLists.txt</code> is in the root of your cloned repository</li>
+</ol>
+<h4>Tests fail to build</h4>
+<ul>
+    <li>Google Test is fetched automatically via CMake&rsquo;s <code>FetchContent</code> &mdash; make sure you have an internet connection during the first build</li>
+    <li>Do <strong>not</strong> modify header files in the <code>include/</code> folder</li>
+</ul>
+<h4>Running the Program</h4>
+<ol>
+    <li>In Visual Studio, select <code>ct7-linked-lists-intro.exe</code> as the startup item from the dropdown</li>
+    <li>Press <strong>Ctrl+F5</strong> to run without debugging</li>
+    <li>You should see output from each section as you complete the TODOs</li>
+</ol>
+<div style="padding: 14px 18px; border-radius: 4px; margin-bottom: 16px; background-color: #dff0d8; border: 1px solid #d6e9c6; color: #3c763d;"><strong>Tip:</strong> Look for the <code>// ! DISCUSSION:</code> comments in each file &mdash; these explain the &ldquo;why&rdquo; behind each concept. The <code>// ? SEE DIAGRAM:</code> comments point you to visual aids in the <code>images/</code> folder.</div>
