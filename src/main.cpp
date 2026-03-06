@@ -1,10 +1,9 @@
 #include "SinglyLinkedList.h"
 
-#include <format>
 #include <iostream>
 
 int main() {
-    std::cout << "=== Code-Together 7: Singly Linked List — Farr's Ice Cream ===\n\n";
+    std::cout << "=== Code-Together 7: Farr's Ice Cream Ticket Queue ===\n\n";
 
     // ! DISCUSSION: Arrays vs linked lists — when to use which?
     //   Imagine Farr's Ice Cream on a busy Friday night. Customers grab
@@ -17,10 +16,6 @@ int main() {
     //   - Linked lists: fast insert/remove at front (just move pointers),
     //     but no random access (must walk to find ticket #5)
 
-    // =========================================================================
-    // PART 1 — Basic Operations
-    // =========================================================================
-
     SinglyLinkedList line;
 
     // --- 1. Customers arrive (push_back) ---
@@ -28,16 +23,13 @@ int main() {
 
     std::cout << "push_back(101) -- Ticket #101 arrives\n";
     line.push_back(101);
-
     std::cout << "push_back(102) -- Ticket #102 arrives\n";
     line.push_back(102);
-
     std::cout << "push_back(103) -- Ticket #103 arrives\n";
     line.push_back(103);
-
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     // ! DISCUSSION: push_back makes sense here.
     //   - New customers join the END of the line, not the front
@@ -47,11 +39,10 @@ int main() {
     std::cout << "--- 2. VIP cuts to the front ---\n";
 
     std::cout << "push_front(200) -- VIP cuts to the front!\n";
-    // TODO: Use push_front to add ticket 200 to the front of the line
-
+    line.push_front(200);
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     // ! DISCUSSION: "Why is the order 200 -> 101 -> 102 -> 103?"
     //   - push_front puts the new node BEFORE the current head
@@ -62,18 +53,16 @@ int main() {
     std::cout << "--- 3. Serving customers ---\n";
 
     std::cout << "pop_front() -- Serving ticket at the front\n";
-    // TODO: Use pop_front to remove the first customer from the line
-
+    line.pop_front();
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     std::cout << "pop_front() -- Serving another ticket\n";
-    // TODO: Use pop_front to remove the next customer from the line
-
+    line.pop_front();
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     // ! DISCUSSION: "Where did tickets #200 and #101 go?"
     //   - pop_front removed them from memory entirely (delete)
@@ -85,13 +74,11 @@ int main() {
 
     std::cout << "push_back(104) -- Ticket #104 arrives\n";
     line.push_back(104);
-
     std::cout << "push_back(105) -- Ticket #105 arrives\n";
     line.push_back(105);
-
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     // ! DISCUSSION: This is a linked list's sweet spot — a queue where people constantly join and leave.
     //   - No shifting, no resizing, just pointer updates
@@ -101,11 +88,10 @@ int main() {
     std::cout << "--- 5. Customer at the back gives up ---\n";
 
     std::cout << "pop_back() -- Ticket at the back gives up waiting\n";
-    // TODO: Use pop_back to remove the last customer from the line
-
+    line.pop_back();
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     // ! DISCUSSION: "Why is pop_back slower than pop_front?"
     //   - To remove the last node, we traverse the ENTIRE list
