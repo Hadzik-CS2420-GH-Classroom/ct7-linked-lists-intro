@@ -1,6 +1,5 @@
 #include "SinglyLinkedList.h"
 
-#include <format>
 #include <iostream>
 
 int main() {
@@ -30,7 +29,7 @@ int main() {
     line.push_back(103);
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     // ! DISCUSSION: push_back makes sense here.
     //   - New customers join the END of the line, not the front
@@ -43,7 +42,7 @@ int main() {
     line.push_front(200);
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     // ! DISCUSSION: "Why is the order 200 -> 101 -> 102 -> 103?"
     //   - push_front puts the new node BEFORE the current head
@@ -57,13 +56,13 @@ int main() {
     line.pop_front();
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     std::cout << "pop_front() -- Serving another ticket\n";
     line.pop_front();
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     // ! DISCUSSION: "Where did tickets #200 and #101 go?"
     //   - pop_front removed them from memory entirely (delete)
@@ -79,7 +78,7 @@ int main() {
     line.push_back(105);
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     // ! DISCUSSION: This is a linked list's sweet spot — a queue where people constantly join and leave.
     //   - No shifting, no resizing, just pointer updates
@@ -92,7 +91,7 @@ int main() {
     line.pop_back();
     std::cout << "Current line: ";
     line.print();
-    std::cout << std::format("People waiting: {}\n\n", line.get_size());
+    std::cout << "People waiting: " << line.get_size() << "\n\n";
 
     // ! DISCUSSION: "Why is pop_back slower than pop_front?"
     //   - To remove the last node, we traverse the ENTIRE list
