@@ -1,6 +1,5 @@
 #include "SinglyLinkedList.h"
 
-#include <format>
 #include <iostream>
 #include <stdexcept>
 
@@ -16,7 +15,7 @@
 //   - The rest of the chain is still out there, unreachable and leaked
 //   - We must follow the next pointers and delete each node individually
 //
-// ? SEE DIAGRAM: images/destructor_walk.png — traversing the chain, deleting each node
+// ? SEE DIAGRAM: images/svgs/destructor_walk.svg — traversing the chain, deleting each node
 
 SinglyLinkedList::~SinglyLinkedList() {
     while (head_) {
@@ -25,19 +24,15 @@ SinglyLinkedList::~SinglyLinkedList() {
         //   - If we do head_ = head_->next first, we lose the only
         //     pointer to the current node and can never delete it
         //   - Order matters: save → advance → delete
-
-        // TODO: Save the current head_ into a temp pointer
-
-        // TODO: Advance head_ to the next node
-
-        // TODO: Delete the temp pointer (frees the old head node)
-
+        auto* temp = head_;
+        head_ = head_->next;
+        delete temp;
     }
 }
 
 // --- Insertion ---
 
-// ? SEE DIAGRAM: images/push_front.png — shows new node's next pointing to old head, then head moving
+// ? SEE DIAGRAM: images/svgs/push_front.svg — shows new node's next pointing to old head, then head moving
 
 void SinglyLinkedList::push_front(int value) {
     // ! DISCUSSION: This is the beauty of push_front — it's always O(1).
@@ -46,49 +41,38 @@ void SinglyLinkedList::push_front(int value) {
     //   - Update head to point to the new node
     //   - Compare to an array: inserting at the front means shifting
     //     EVERY element one slot to the right — O(n)
-
-    // TODO: Create a new Node with 'value' and whose next points to head_,
-    //       then update head_ to point to the new node.
-
-    // TODO: Increment size_
-
+    head_ = new Node{value, head_};
+    ++size_;
 }
 
-// ? SEE DIAGRAM: images/push_back.png — shows traversing to the last node, then linking the new node
+// ? SEE DIAGRAM: images/svgs/push_back.svg — shows traversing to the last node, then linking the new node
 
 void SinglyLinkedList::push_back(int value) {
-    // TODO: Create a new Node with 'value' (next defaults to nullptr)
-
+    auto* newNode = new Node{value};
 
     if (!head_) {
         // ! DISCUSSION: Empty list is a special case.
         //   - There's no existing node to attach to
         //   - The new node simply becomes the head
-
-        // TODO: Set head_ to the new node
-
+        head_ = newNode;
     } else {
         // ! DISCUSSION: We must traverse to the END of the list to find the last node.
         //   - This makes push_back O(n) — the longer the list, the longer the traversal
         //   - Key tradeoff vs arrays, where appending to the end is O(1) (if there's capacity)
         //   - We could fix this by keeping a 'tail' pointer, but that adds
         //     complexity we'll explore later
-
-        // TODO: Create a 'current' pointer starting at head_
-
-        // TODO: Traverse to the last node (while current->next is not nullptr)
-
-        // TODO: Link the new node to the end of the list
-
+        auto* current = head_;
+        while (current->next) {
+            current = current->next;
+        }
+        current->next = newNode;
     }
-
-    // TODO: Increment size_
-
+    ++size_;
 }
 
 // --- Removal ---
 
-// ? SEE DIAGRAM: images/pop_front.png — shows saving head, advancing head, deleting old head
+// ? SEE DIAGRAM: images/svgs/pop_front.svg — shows saving head, advancing head, deleting old head
 
 void SinglyLinkedList::pop_front() {
     if (!head_) {
@@ -105,18 +89,13 @@ void SinglyLinkedList::pop_front() {
     //   - Some implementations return the value, but the STL convention
     //     (std::stack::pop, std::queue::pop) is to return void
     //   - Provide a separate top()/front() method to peek first
-
-    // TODO: Save head_ into a temp pointer
-
-    // TODO: Advance head_ to the next node
-
-    // TODO: Delete the temp pointer
-
-    // TODO: Decrement size_
-
+    auto* temp = head_;
+    head_ = head_->next;
+    delete temp;
+    --size_;
 }
 
-// ? SEE DIAGRAM: images/pop_back.png — shows trailing pointer pattern to find and remove the last node
+// ? SEE DIAGRAM: images/svgs/pop_back.svg — shows trailing pointer pattern to find and remove the last node
 
 void SinglyLinkedList::pop_back() {
     if (!head_) {
@@ -127,8 +106,9 @@ void SinglyLinkedList::pop_back() {
     //   - If head_->next is nullptr, the head IS the tail
     //   - Just delete it and set head_ to nullptr — no traversal needed
     if (!head_->next) {
-        // TODO: Delete head_ and set it to nullptr, then decrement size_
-
+        delete head_;
+        head_ = nullptr;
+        --size_;
         return;
     }
 
@@ -144,24 +124,20 @@ void SinglyLinkedList::pop_back() {
     //   - We must traverse the entire list to find the second-to-last node
     //   - Compare to pop_front which is O(1)
     //   - A doubly linked list fixes this by giving each node a 'prev' pointer
-
-    // TODO: Create 'previous' pointing to head_, and 'current' pointing to head_->next
-
-    // TODO: While current->next is not nullptr:
-    //         Advance previous to current
-    //         Advance current to current->next
+    auto* previous = head_;
+    auto* current  = head_->next;
+    while (current->next) {
+        previous = current;
+        current  = current->next;
+    }
 
     // ! DISCUSSION: Now 'current' is the last node, 'previous' is the second-to-last.
     //   Unlink and delete:
     //   - Set previous->next to nullptr (it's now the new tail)
     //   - Delete current (free the old tail's memory)
-
-    // TODO: Set previous->next to nullptr
-
-    // TODO: Delete current
-
-    // TODO: Decrement size_
-
+    previous->next = nullptr;
+    delete current;
+    --size_;
 }
 
 // --- Getters ---
@@ -177,13 +153,10 @@ void SinglyLinkedList::print() const {
     //     next pointers until it hits nullptr (end of list)
     //   - This is the fundamental traversal pattern for linked lists —
     //     you'll see it again in search and remove operations (CT8)
-
-    Node* current = head_;
-
+    auto* current = head_;
     while (current) {
-        std::cout << std::format("{} -> ", current->data);
+        std::cout << current->data << " -> ";
         current = current->next;
     }
-
     std::cout << "nullptr\n";
 }
